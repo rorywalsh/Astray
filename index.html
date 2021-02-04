@@ -22,9 +22,9 @@
             ballMesh = undefined,
             ballRadius = 0.25,
             keyAxis = [0, 0],
-            ironTexture = THREE.ImageUtils.loadTexture('/ball.png'),
-            planeTexture = THREE.ImageUtils.loadTexture('/concrete.png'),
-            brickTexture = THREE.ImageUtils.loadTexture('/brick.png'),
+            ironTexture = THREE.ImageUtils.loadTexture('/ball1.png'),
+            planeTexture = THREE.ImageUtils.loadTexture('/concrete1.png'),
+            brickTexture = THREE.ImageUtils.loadTexture('/brick1.png'),
             gameState = undefined,
 
             // Box2D shortcuts
@@ -41,17 +41,19 @@
             wWorld = undefined,
             wBall = undefined;
 
+
         //======== add sounds to scene =======
         var rolling = new Audio('rolling.wav');
-        rolling.play();
         rolling.loop = true;
-        rolling.volume = 0.0;
+        rolling.volume = 1;
         var collisions = [];
         collisions.push(new Audio('collision1.wav'));
         collisions.push(new Audio('collision2.wav'));
         collisions.push(new Audio('collision3.wav'));
         collisions.forEach(sound => sound.volume = .1);
         //================================================
+
+
 
         function createPhysicsWorld() {
             // Create the world object.
@@ -163,6 +165,8 @@
 
 
         function updatePhysicsWorld() {
+
+
 
             // Apply "friction". 
             var lv = wBall.GetLinearVelocity();
@@ -281,6 +285,8 @@
 
 
         function onMoveKey(axis) {
+            if (rolling.paused === true)
+                rolling.play();
             keyAxis = axis.slice(0);
         }
 
